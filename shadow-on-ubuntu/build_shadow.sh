@@ -55,7 +55,8 @@ rpcu=$(pwgen -ncsB 35 1)
 rpcp=$(pwgen -ncsB 75 1)
 echo "rpcuser="$rpcu"
 rpcpassword="$rpcp"
-daemon=1" > $SHADOWPATH/shadowcoin.conf
+daemon=1
+logtimestamps=1" > $SHADOWPATH/shadowcoin.conf
 
 # Start Shadow Client
 su - $AZUREUSER -c "shadowcoind"
