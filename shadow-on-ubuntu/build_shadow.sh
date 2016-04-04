@@ -58,6 +58,29 @@ rpcpassword="$rpcp"
 daemon=1
 logtimestamps=1" > $SHADOWPATH/shadowcoin.conf
 
+if [ $1 = 'From_BinariesTOR' ]; then
+	## Install and Enable Tor
+	sudo add-apt-repository "deb http://deb.torproject.org/torproject.org $(lsb_release -s -c) main"
+	sudo gpg --keyserver keys.gnupg.net --recv 886DDD89
+	sudo gpg --export A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89 | sudo apt-key add -
+	sudo apt-get update
+	sudo apt-get -y install tor deb.torproject.org-keyring
+	sudo sh -c "cat >> /etc/tor/torrc << EOF
+HiddenServiceDir /var/lib/tor/shadow-service/
+HiddenServicePort 51737 127.0.0.1:51737
+SocksPort 127.0.0.1:9150
+EOF"
+	sudo service tor reload
+
+	sh -c "cat >> $SHADOWPATH/shadowcoin.conf << EOF
+bind=127.0.0.1:51737
+externalip=$(dig +short myip.opendns.com @resolver1.opendns.com)
+
+externalip=$(sudo cat /var/lib/tor/shadow-service/hostname)
+onion=127.0.0.1:9150
+EOF"
+fi
+
 # Start Shadow Client
 su - $AZUREUSER -c "shadowcoind"
 
