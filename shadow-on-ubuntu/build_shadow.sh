@@ -56,7 +56,7 @@ rpcpassword="$rpcp"
 daemon=1
 logtimestamps=1" > $SHADOWPATH/shadowcoin.conf
 
-if [ $1 = 'From_BinariesTOR' ]; then
+if [ $1 = 'From_Binaries_and_TOR' ]; then
 	## Install and Enable Shadow Tor Support
 	sudo add-apt-repository "deb http://deb.torproject.org/torproject.org $(lsb_release -s -c) main"
 	sudo gpg --keyserver keys.gnupg.net --recv 886DDD89
