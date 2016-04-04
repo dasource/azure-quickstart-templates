@@ -25,6 +25,7 @@
       "defaultValue": "From_Binaries",
       "allowedValues": [
         "From_Binaries",
+        "From_BinariesTOR",
         "From_Source"
       ],
       "metadata": {
